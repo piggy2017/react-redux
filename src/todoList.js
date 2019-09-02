@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 // import store from './store'
 import {connect} from "react-redux"   // connect连接器
 import {Input,Button,List} from 'antd'
 import 'antd/dist/antd.css'
 import axios from 'axios'
+import {CHANGE_INPUT,ADD_ITEM,DELETE_ITEM,GET_LIST} from "./store/actionTypes"
 
 
 // 无状态组件其实就是一个函数，它不用再继承任何的类（class），当然如名字所一样，也不存在state（状态）。因为无状态组件其实就是一个函数（方法）,所以它的性能也比普通的React组件要好。
@@ -64,20 +65,20 @@ const dispatchToProps=(dispatch)=>{
         inputChange(e){
             console.log(e.target.value)
             const action={
-                type:"change_input",
+                type:CHANGE_INPUT,
                 value:e.target.value
             }
             dispatch(action)
         },
         addList(){
             const action={
-                type:"add_item"
+                type:ADD_ITEM
             }
             dispatch(action)
         },
         deleteItem(index){
             const action={
-                type:"delete_item",
+                type:DELETE_ITEM,
                 index:index
             }
             dispatch(action)
@@ -86,7 +87,7 @@ const dispatchToProps=(dispatch)=>{
             axios.get("https://www.easy-mock.com/mock/5d661d956027392ba6642a36/reactdemo01/serverList").then(res=>{
                 console.log(res);
                 const action = {
-                    type:"get_list",
+                    type:GET_LIST,
                     data:res.data.data
                 }
                 dispatch(action)
